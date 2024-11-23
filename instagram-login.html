@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .logo img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            margin-bottom: 20px;
+        }
+        .checkbox-container input {
+            margin-right: 10px;
+        }
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0095f6;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-button:hover {
+            background-color: #0078cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+        </div>
+        <form id="login-form">
+            <input type="text" id="username" class="input-field" placeholder="Phone number, username, or email" required>
+            <input type="password" id="password" class="input-field" placeholder="Password" required>
+            <div class="checkbox-container">
+                <input type="checkbox" id="save-login">
+                <label for="save-login">Save Login</label>
+            </div>
+            <button type="submit" class="login-button">Log In</button>
+        </form>
+    </div>
+
+    <script>
+        // Save login details to localStorage
+        const usernameField = document.getElementById('username');
+        const passwordField = document.getElementById('password');
+        const saveLoginCheckbox = document.getElementById('save-login');
+        const loginForm = document.getElementById('login-form');
+
+        // Load saved login details on page load
+        window.onload = function () {
+            if (localStorage.getItem('saveLogin') === 'true') {
+                usernameField.value = localStorage.getItem('username') || '';
+                passwordField.value = localStorage.getItem('password') || '';
+                saveLoginCheckbox.checked = true;
+            }
+        };
+
+        // Handle form submission
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent form submission
+            if (saveLoginCheckbox.checked) {
+                localStorage.setItem('saveLogin', 'true');
+                localStorage.setItem('username', usernameField.value);
+                localStorage.setItem('password', passwordField.value);
+            } else {
+                localStorage.removeItem('saveLogin');
+                localStorage.removeItem('username');
+                localStorage.removeItem('password');
+
+            }
+            alert('Login details submitted!');
+        });
+    </script>
+</body>
+</html>
